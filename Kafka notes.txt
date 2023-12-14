@@ -1,0 +1,51 @@
+10.100.69.243
+
+ipconfig /flushdns
+
+https://dev.to/sergiomarcial/kafka-simplified-with-kcat-kafka-cat-1gn7
+
+https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+
+
+https://dzone.com/articles/how-to-deploy-apache-kafka-with-kubernetes
+
+Kafkacat:   https://codingharbour.com/apache-kafka/learn-how-to-use-kafkacat-the-most-versatile-cli-client/
+
+******************************************
+kubectl port-forward kafka-broker-5c55f544d4-hrgnv 9092 -n kafka
+
+kubectl exec -it kafka-broker-696ffdf876-vlc9n -n kafka -- /bin/bash
+
+echo "Good" | kafkacat -P -b localhost:9092 -t test
+
+kafkacat -C -b localhost:9092 -t test
+
+
+
+
+***************************************
+minikube:
+
+10.104.121.236
+
+
+last option:
+https://www.datumo.io/blog/setting-up-kafka-on-kubernetes
+
+https://www.madhur.co.in/blog/2021/05/22/few-useful-kubectl-commands.html
+
+
+minikube start
+
+kubectl get pods -n kafka
+
+kubectl exec -it kafka-broker-5948d6749-57wqc -n kafka -- /bin/bash
+
+kubectl describe pod -n kafka kafka-broker-5948d6749-57wqc
+
+
+minikube dashboard --url true
+
+
+helm install kafka-release bitnami/kafka --set persistence.size=8Gi,logPersistence.size=8Gi,replicaCount=3,volumePermissions.enabled=true,persistence.enabled=true,logPersistence.enabled=true,auth.clientProtocol=plaintext,allowPlaintextListener=true,listeners=PLAINTEXT://0.0.0.0:9092,advertisedListeners=PLAINTEXT://:9092,listenerSecurityProtocolMap=PLAINTEXT:PLAINTEXT,interBrokerListenerName="PLAINTEXT",serviceAccount.create=true,rbac.create=true,image.tag=latest
+helm upgrade kafka-release bitnami/kafka --set externalAccess.enabled=true
